@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#020806">
+<meta name="description" content="The Eternal Memorial — an Islamic remembrance of my beloved grandmother. Forever remembered, always in our du'as.">
+<title>The Eternal Memorial — Forever Remembered</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Reusable ornaments (hidden) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-star" viewBox="0 0 32 32">
+      <rect x="6" y="6" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <rect x="6" y="6" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.2" transform="rotate(45 16 16)"/>
+      <circle cx="16" cy="16" r="3" fill="currentColor"/>
+    </symbol>
+    <symbol id="i-crescent" viewBox="0 0 32 32">
+      <path d="M22 4A13 13 0 1 0 22 28A12.5 12.5 0 0 1 22 4Z" fill="currentColor"/>
+      <path d="M26 10l1.2 2.6 2.8.3-2.1 1.9.6 2.8-2.5-1.4-2.5 1.4.6-2.8-2.1-1.9 2.8-.3z" fill="currentColor" transform="translate(-3 1) scale(.8)"/>
+    </symbol>
+    <symbol id="i-arch" viewBox="0 0 32 32">
+      <path d="M6 30V14C6 8 12 5 16 2c4 3 10 6 10 12v16" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M11 30V16c0-3 3-5 5-7 2 2 5 4 5 7v14" fill="none" stroke="currentColor" stroke-width="1" opacity=".7"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="page">
+
+  <!-- ============ HEADER ============ -->
+  <header class="hero">
+    <svg class="hero-crescent" aria-hidden="true"><use href="#i-crescent"/></svg>
+
+    <p class="arabic hero-arabic" lang="ar" dir="rtl">إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ</p>
+
+    <p class="hero-eyebrow">IN LOVING MEMORY</p>
+    <h1 class="hero-title">The Eternal Memorial</h1>
+    <p class="hero-sub">An Islamic remembrance of my beloved grandmother</p>
+
+    <div class="rule" aria-hidden="true"><span></span><svg><use href="#i-star"/></svg><span></span></div>
+
+    <div class="memorial-date">
+      <p class="md-label">Departed from this world</p>
+      <time class="md-date" datetime="2024-10-31T17:12:00+06:00">31 OCTOBER 2024</time>
+      <p class="md-day">THURSDAY</p>
+      <p class="md-time">5:12 PM — BANGLADESH TIME</p>
+    </div>
+
+    <div class="today" aria-live="off">
+      <p class="today-label">Today in Bangladesh</p>
+      <p class="today-date"><span id="curWeekday">—</span>, <span id="curDay">—</span> <span id="curMonth">—</span> <span id="curYear">—</span></p>
+      <p class="today-time" id="curTime">--:--:-- --</p>
+      <p class="badge" id="sourceBadge" data-state="offline">OFFLINE — DEVICE TIME</p>
+    </div>
+
+    <svg class="skyline" viewBox="0 0 400 120" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
+      <g fill="#07241b" stroke="#c9a24b" stroke-opacity=".45" stroke-width=".8">
+        <path d="M140 120V80a60 60 0 0 1 120 0v40z"/>
+        <path d="M200 20v-9"/>
+        <path d="M90 120v-20a25 25 0 0 1 50 0v20z"/>
+        <path d="M260 120v-20a25 25 0 0 1 50 0v20z"/>
+        <rect x="56" y="48" width="14" height="72"/>
+        <path d="M54 48h18l-9-24z"/>
+        <rect x="330" y="48" width="14" height="72"/>
+        <path d="M328 48h18l-9-24z"/>
+        <path d="M0 119h400"/>
+        <path d="M185 120V98a15 15 0 0 1 30 0v22z" fill="#020806"/>
+      </g>
+      <g fill="#c9a24b">
+        <circle cx="63" cy="20" r="1.6"/>
+        <circle cx="337" cy="20" r="1.6"/>
+        <circle cx="200" cy="9" r="1.8"/>
+      </g>
+    </svg>
+  </header>
+
+  <!-- ============ THREE FACES ============ -->
+  <main>
+    <h2 class="visually-hidden">Time elapsed since her passing</h2>
+
+    <div class="faces">
+
+      <!-- FACE 01 -->
+      <section class="face face-years" aria-labelledby="f1-title">
+        <svg class="face-orn" aria-hidden="true"><use href="#i-star"/></svg>
+        <h3 class="face-title" id="f1-title">YEARS OF REMEMBRANCE</h3>
+        <div class="main-num">
+          <span class="num" id="y-years">0</span>
+          <span class="unit" id="y-years-l">YEARS</span>
+        </div>
+        <div class="sub-grid">
+          <div class="sub"><span class="num" id="y-months">00</span><span class="unit" id="y-months-l">MONTHS</span></div>
+          <div class="sub"><span class="num" id="y-days">00</span><span class="unit" id="y-days-l">DAYS</span></div>
+        </div>
+      </section>
+
+      <!-- FACE 02 -->
+      <section class="face face-months" aria-labelledby="f2-title">
+        <svg class="face-orn" aria-hidden="true"><use href="#i-arch"/></svg>
+        <h3 class="face-title" id="f2-title">MONTHS OF REMEMBRANCE</h3>
+        <div class="main-num">
+          <span class="num" id="m-months">0</span>
+          <span class="unit" id="m-months-l">MONTHS</span>
+        </div>
+        <div class="sub-grid">
+          <div class="sub"><span class="num" id="m-days">00</span><span class="unit" id="m-days-l">DAYS</span></div>
+          <div class="sub"><span class="num" id="m-hours">00</span><span class="unit" id="m-hours-l">HOURS</span></div>
+        </div>
+      </section>
+
+      <!-- FACE 03 -->
+      <section class="face face-hours" aria-labelledby="f3-title">
+        <svg class="face-orn" aria-hidden="true"><use href="#i-crescent"/></svg>
+        <h3 class="face-title" id="f3-title">HOURS OF REMEMBRANCE</h3>
+        <div class="main-num">
+          <span class="num" id="h-hours">0</span>
+          <span class="unit" id="h-hours-l">HOURS</span>
+        </div>
+        <div class="sub-grid">
+          <div class="sub"><span class="num" id="h-minutes">00</span><span class="unit" id="h-minutes-l">MINUTES</span></div>
+          <div class="sub"><span class="num" id="h-seconds">00</span><span class="unit" id="h-seconds-l">SECONDS</span></div>
+        </div>
+      </section>
+
+    </div>
+
+    <p class="clock-note">Counted from 31 October 2024, 5:12 PM Bangladesh time. The count never resets and is recalculated in full each time this page opens.</p>
+
+    <!-- ============ DUAS ============ -->
+    <section class="duas" aria-labelledby="duas-title">
+      <div class="rule" aria-hidden="true"><span></span><svg><use href="#i-star"/></svg><span></span></div>
+      <h2 class="section-title" id="duas-title">DUAS FOR MY BELOVED GRANDMOTHER</h2>
+      <p class="section-sub">Please remember her in your prayers.</p>
+
+      <article class="dua">
+        <h3 class="dua-title">Du'a 1 — For forgiveness</h3>
+        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ اغْفِرْ لَهَا وَارْحَمْهَا وَعَافِهَا وَاعْفُ عَنْهَا</p>
+        <p class="dua-tr">Allahummaghfir laha, warhamha, wa 'afiha, wa'fu 'anha.</p>
+        <p class="dua-bn" lang="bn">হে আল্লাহ! আপনি তাঁকে ক্ষমা করুন, তাঁর প্রতি রহম করুন, তাঁকে শান্তি ও নিরাপত্তা দান করুন এবং তাঁর ভুলত্রুটি ক্ষমা করে দিন।</p>
+      </article>
+
+      <article class="dua">
+        <h3 class="dua-title">Du'a 2 — For a peaceful grave</h3>
+        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ وَسِّعْ قَبْرَهَا وَنَوِّرْ لَهَا فِيهِ</p>
+        <p class="dua-tr">Allahumma wassi' qabraha wa nawwir laha fihi.</p>
+        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁর কবর প্রশস্ত করে দিন এবং তাঁর কবরকে নূরে আলোকিত করে দিন।</p>
+      </article>
+
+      <article class="dua">
+        <h3 class="dua-title">Du'a 3 — For Jannah</h3>
+        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ أَدْخِلْهَا الْجَنَّةَ الْفِرْدَوْسَ الْأَعْلَى</p>
+        <p class="dua-tr">Allahumma adkhilha al-Jannata al-Firdaws al-A'la.</p>
+        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁকে জান্নাতুল ফেরদাউসের সর্বোচ্চ মর্যাদা দান করুন।</p>
+      </article>
+
+      <article class="dua">
+        <h3 class="dua-title">Du'a 4 — For mercy and protection</h3>
+        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ أَجِرْهَا مِنْ عَذَابِ الْقَبْرِ وَعَذَابِ النَّارِ</p>
+        <p class="dua-tr">Allahumma ajirha min 'adhabil-qabri wa 'adhabin-nar.</p>
+        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁকে কবরের আজাব ও জাহান্নামের আজাব থেকে রক্ষা করুন।</p>
+      </article>
+
+      <article class="dua">
+        <h3 class="dua-title">Du'a 5 — For eternal mercy</h3>
+        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبِّ ارْحَمْهَا كَمَا رَبَّتْنِي صَغِيرًا</p>
+        <p class="dua-tr">Rabbi irhamha kama rabbatni saghira.</p>
+        <p class="dua-bn" lang="bn">হে আমার প্রতিপালক! তিনি যেমন ছোটবেলায় আমাকে স্নেহ-মমতায় লালন-পালন করেছেন, আপনিও তাঁর প্রতি তেমন রহম করুন।</p>
+      </article>
+
+      <p class="dua-note">May Allah forgive her, illuminate her grave, grant her peace, accept her good deeds, and bless her with Jannatul Firdaus. Ameen.</p>
+    </section>
+
+    <!-- ============ VISITOR ============ -->
+    <section class="visitor" aria-labelledby="visitor-title">
+      <svg class="face-orn" aria-hidden="true"><use href="#i-crescent"/></svg>
+      <h2 class="section-title" id="visitor-title">PLEASE MAKE A DU'A</h2>
+      <div class="visitor-text" lang="bn">
+        <p>আপনি যদি এই স্মৃতির পাতায় এসে থাকেন, অনুগ্রহ করে আমার প্রিয় দাদীর জন্য একটি দোয়া করবেন।</p>
+        <p>আল্লাহ যেন তাঁর সকল গুনাহ ক্ষমা করে দেন, তাঁর কবরকে প্রশস্ত ও নূরে আলোকিত করে দেন, তাঁকে কবরের যাবতীয় কষ্ট থেকে রক্ষা করেন এবং জান্নাতুল ফেরদাউস নসিব করেন।</p>
+        <p>আমিন।</p>
+      </div>
+      <button type="button" class="ameen-btn" id="ameenBtn" aria-controls="ameenNote" aria-expanded="false">
+        <span class="arabic" lang="ar">آمِين</span>
+        <span>Ameen</span>
+      </button>
+      <p class="ameen-note" id="ameenNote" role="status" aria-live="polite" hidden>
+        Ameen. May Allah accept every du'a made for her. Jazakumullahu khayran for remembering her.
+      </p>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="final">
+    <div class="rule" aria-hidden="true"><span></span><svg><use href="#i-star"/></svg><span></span></div>
+    <p class="final-main">Forever Remembered. Always in Our Du'as.</p>
+    <p class="final-sub">May Allah grant my beloved grandmother Jannatul Firdaus. Ameen.</p>
+  </footer>
+
+</div>
+
+<noscript><p class="noscript">JavaScript is needed to show the live count. Memorial date: 31 October 2024, 5:12 PM, Bangladesh time.</p></noscript>
+<script src="script.js"></script>
+</body>
+</html>

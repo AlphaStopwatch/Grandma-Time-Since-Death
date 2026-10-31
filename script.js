@@ -64,6 +64,8 @@
 
     // Exact elapsed duration (BigInt, no precision limit)
     var totalSeconds = BigInt(Math.floor((nowWall - START_WALL) / 1000));
+    var totalDays = totalSeconds / 86400n;
+    var dayHours = (totalSeconds % 86400n) / 3600n;
     var totalHours = totalSeconds / 3600n;
     var minutes = (totalSeconds % 3600n) / 60n;
     var seconds = totalSeconds % 60n;
@@ -74,6 +76,8 @@
       totalMonths: months,
       remDays: remDays,
       remHours: remHours,
+      totalDays: totalDays,
+      dayHours: Number(dayHours),
       totalHours: totalHours,
       minutes: Number(minutes),
       seconds: Number(seconds),
@@ -126,13 +130,13 @@
     setText('y-days', pad2(d.remDays));
     setText('y-days-l', plural(d.remDays, 'DAY', 'DAYS'));
 
-    // FACE 02 — total months, days, hours
-    setText('m-months', group(BigInt(d.totalMonths)));
-    setText('m-months-l', plural(d.totalMonths, 'MONTH', 'MONTHS'));
-    setText('m-days', pad2(d.remDays));
-    setText('m-days-l', plural(d.remDays, 'DAY', 'DAYS'));
-    setText('m-hours', pad2(d.remHours));
-    setText('m-hours-l', plural(d.remHours, 'HOUR', 'HOURS'));
+    // FACE 02 — total days, hours, minutes
+    setText('d-days', group(d.totalDays));
+    setText('d-days-l', plural(d.totalDays, 'DAY', 'DAYS'));
+    setText('d-hours', pad2(d.dayHours));
+    setText('d-hours-l', plural(d.dayHours, 'HOUR', 'HOURS'));
+    setText('d-minutes', pad2(d.minutes));
+    setText('d-minutes-l', plural(d.minutes, 'MINUTE', 'MINUTES'));
 
     // FACE 03 — total hours, minutes, seconds
     setText('h-hours', group(d.totalHours));
@@ -309,6 +313,35 @@
     for (var m = 0; m < items.length; m++) io.observe(items[m]);
   }
 
+  /* ---------- quiet words that change slowly ---------- */
+  var MISS = [
+    'দাদু, তুমি নেই—কিন্তু তোমার দোয়া আজও আমার সঙ্গে আছে।',
+    'তোমার ডাকটা আর শুনতে পাই না, দাদু। বুকের ভেতরটা খুব খালি লাগে।',
+    'যতবার দরজার দিকে তাকাই, মনে হয় তুমি এখনই ডাকবে।',
+    'দাদু, আমি তোমাকে খুব মিস করি। প্রতিদিন তোমার জন্য দোয়া করি।',
+    'কিছু ভালোবাসা শেষ হয় না, দোয়ার ভেতর দিয়ে বেঁচে থাকে।',
+    'হে আল্লাহ, আমার দাদীকে আপনি আপনার রহমতের ছায়ায় রাখুন।',
+    'চোখের পানি থামে না, তবু আল্লাহর ফয়সালায় আমি সবর করতে চাই।',
+    'দাদু, আল্লাহ তোমাকে শান্তি দিন। আমরা তোমার জন্য দোয়া করে যাব।'
+  ];
+
+  function setupMiss() {
+    var node = document.getElementById('missLine');
+    if (!node) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var i = 0;
+    setInterval(function () {
+      if (document.visibilityState !== 'visible') return;
+      node.classList.add('out');
+      setTimeout(function () {
+        i = (i + 1) % MISS.length;
+        node.textContent = MISS[i];
+        node.classList.remove('out');
+      }, 900);
+    }, 8000);
+  }
+
   function setupAmeen() {
     var btn = document.getElementById('ameenBtn');
     var note = document.getElementById('ameenNote');
@@ -329,6 +362,7 @@
   /* ---------- start ---------- */
   function start() {
     setupAmbience();
+    setupMiss();
     setupAmeen();
     tick();
     sync();

@@ -1,522 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" dir="ltr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#020806">
-<meta name="description" content="The Eternal Memorial — an Islamic remembrance of my beloved grandmother. Forever remembered, always in our du'as.">
-<title>The Eternal Memorial — Forever Remembered</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DADI — Eternal Memorial</title>
+<meta name="description" content="DADI — Eternal Memorial. A memorial stopwatch and collection of authentic duas for my beloved DADI.">
+<meta name="theme-color" content="#05080a">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="particles" aria-hidden="true"></div>
+<header class="hero">
+  <div class="langbar" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">English</button>
+    <button type="button" data-lang="ar" aria-pressed="false" lang="ar">العربية</button>
+    <button type="button" data-lang="bn" aria-pressed="false" lang="bn">বাংলা</button>
+  </div>
 
-<!-- Reusable ornaments (hidden) -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="i-star" viewBox="0 0 32 32">
-      <rect x="6" y="6" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <rect x="6" y="6" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.2" transform="rotate(45 16 16)"/>
-      <circle cx="16" cy="16" r="3" fill="currentColor"/>
-    </symbol>
-    <symbol id="i-crescent" viewBox="0 0 32 32">
-      <path d="M22 4A13 13 0 1 0 22 28A12.5 12.5 0 0 1 22 4Z" fill="currentColor"/>
-      <path d="M26 10l1.2 2.6 2.8.3-2.1 1.9.6 2.8-2.5-1.4-2.5 1.4.6-2.8-2.1-1.9 2.8-.3z" fill="currentColor" transform="translate(-3 1) scale(.8)"/>
-    </symbol>
-    <symbol id="i-arch" viewBox="0 0 32 32">
-      <path d="M6 30V14C6 8 12 5 16 2c4 3 10 6 10 12v16" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      <path d="M11 30V16c0-3 3-5 5-7 2 2 5 4 5 7v14" fill="none" stroke="currentColor" stroke-width="1" opacity=".7"/>
-    </symbol>
-  </defs>
-</svg>
+  <div class="arch">
+    <svg class="crescent" viewBox="0 0 40 40" aria-hidden="true"><path d="M26 6A15 15 0 1 0 26 34A12 12 0 1 1 26 6Z" fill="#c9a85c"/></svg>
+    <p class="calli" lang="ar" dir="rtl">إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ</p>
+    <h1 data-i18n="title">DADI</h1>
+    <p class="main-h" data-i18n="main_h">ETERNAL MEMORIAL</p>
+    <p class="tagline" data-i18n="tagline"></p>
+    <p class="kicker" data-i18n="kicker"></p>
+  </div>
 
-<div class="page">
+  <section class="origin" aria-labelledby="origin-h">
+    <h2 id="origin-h" data-i18n="origin_h">Original date of passing</h2>
+    <p class="origin-main"><span id="o-date"></span> — <span id="o-time"></span></p>
+    <p class="origin-sub"><span id="o-day"></span></p>
+    <p class="origin-cal"><span id="o-hijri"></span></p>
+    <p class="origin-cal"><span id="o-bangla"></span></p>
+    <p class="fine" data-i18n="origin_tz">BANGLADESH STANDARD TIME (UTC+06:00) · Asia/Dhaka · 2026-10-31T17:12:00+06:00</p>
+  </section>
 
-  <!-- ============ HEADER ============ -->
-  <header class="hero">
-    <svg class="hero-crescent" aria-hidden="true"><use href="#i-crescent"/></svg>
+  <section class="now" aria-labelledby="now-h">
+    <h2 id="now-h" data-i18n="now_h">Current Bangladesh date and time</h2>
+    <p class="now-date"><span id="c-day"></span>, <span id="c-date"></span></p>
+    <p class="now-time" id="c-time" aria-live="off"></p>
+    <p class="now-cal"><span id="c-hijri"></span></p>
+    <p class="now-cal"><span id="c-bangla"></span></p>
+    <p class="status" id="status" role="status"></p>
+    <p class="fine" id="status-detail"></p>
+  </section>
+</header>
 
-    <svg class="lantern lantern-l" viewBox="0 0 40 96" aria-hidden="true" focusable="false"><path d="M20 0v18" stroke="#c9a24b" stroke-width="1"/><path d="M12 22h16l-3-4H15z" fill="#c9a24b"/><path d="M10 24h20l3 40-6 10H13l-6-10z" fill="rgba(201,162,75,.12)" stroke="#c9a24b" stroke-width="1.2"/><ellipse class="flame" cx="20" cy="50" rx="4" ry="8" fill="#e6c878"/><path d="M16 76h8v6l-4 6-4-6z" fill="#c9a24b"/></svg>
-    <svg class="lantern lantern-r" viewBox="0 0 40 96" aria-hidden="true" focusable="false"><path d="M20 0v18" stroke="#c9a24b" stroke-width="1"/><path d="M12 22h16l-3-4H15z" fill="#c9a24b"/><path d="M10 24h20l3 40-6 10H13l-6-10z" fill="rgba(201,162,75,.12)" stroke="#c9a24b" stroke-width="1.2"/><ellipse class="flame" cx="20" cy="50" rx="4" ry="8" fill="#e6c878"/><path d="M16 76h8v6l-4 6-4-6z" fill="#c9a24b"/></svg>
+<main>
 
-    <p class="arabic hero-arabic" lang="ar" dir="rtl">إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ</p>
+  <section id="stopwatch" aria-labelledby="sw-h">
+    <h2 id="sw-h" class="section-title" data-i18n="sw_title">DADI — ETERNAL MEMORIAL STOPWATCH</h2>
+    <p class="section-sub" data-i18n="sw_sub">Counting Every Moment Since Her Departure.</p>
 
-    <p class="hero-eyebrow">IN LOVING MEMORY</p>
-    <h1 class="hero-title">The Eternal Memorial</h1>
-    <p class="hero-sub">An Islamic remembrance of my beloved grandmother</p>
-    <p class="hero-grief" lang="bn">দাদু, তোমাকে ছাড়া পৃথিবীটা অনেক নীরব হয়ে গেছে।</p>
-
-    <div class="rule" aria-hidden="true"><span></span><svg><use href="#i-star"/></svg><span></span></div>
-
-    <div class="memorial-date">
-      <p class="md-label">Departed from this world</p>
-      <time class="md-date" datetime="2026-10-31T17:12:00+06:00">31 OCTOBER 2026</time>
-      <p class="md-day">SATURDAY</p>
-      <p class="md-alt arabic" id="memHijri" lang="ar" dir="rtl">السبت، ٢٠ جمادى الأولى ١٤٤٨ هـ</p>
-      <p class="md-alt" id="memBangla" lang="bn">শনিবার, ১৬ কার্তিক ১৪৩৩ বঙ্গাব্দ</p>
-      <p class="md-time">5:12 PM — BANGLADESH TIME</p>
+    <div class="grid">
+      <article class="card c-years"><h3 data-i18n="u_years">YEARS</h3><div class="numbox"><span class="num" id="v-years">0</span></div></article>
+      <article class="card c-months"><h3 data-i18n="u_months">MONTHS</h3><div class="numbox"><span class="num" id="v-months">0</span></div></article>
+      <article class="card c-days"><h3 data-i18n="u_days">DAYS</h3><div class="numbox"><span class="num" id="v-days">0</span></div></article>
+      <article class="card c-hours"><h3 data-i18n="u_hours">HOURS</h3><div class="numbox"><span class="num" id="v-hours">0</span></div></article>
+      <article class="card c-minutes"><h3 data-i18n="u_minutes">MINUTES</h3><div class="numbox"><span class="num" id="v-minutes">0</span></div></article>
+      <article class="card c-seconds"><h3 data-i18n="u_seconds">SECONDS</h3><div class="numbox"><span class="num" id="v-seconds">0</span></div></article>
+      <article class="card c-nanos wide"><h3 data-i18n="u_nanos">NANOSECONDS</h3><div class="numbox"><span class="num" id="v-nanos">0</span></div>
+        <p class="fine" id="precision"></p></article>
     </div>
 
-    <div class="today" aria-live="off">
-      <p class="today-label">Today in Bangladesh</p>
-      <p class="today-date"><span id="curWeekday">—</span>, <span id="curDay">—</span> <span id="curMonth">—</span> <span id="curYear">—</span></p>
-      <p class="today-alt arabic" id="curHijri" lang="ar" dir="rtl">—</p>
-      <p class="today-alt" id="curBangla" lang="bn">—</p>
-      <p class="today-time" id="curTime">--:--:-- --</p>
-      <p class="badge" id="sourceBadge" data-state="offline">OFFLINE — DEVICE TIME</p>
-      <p class="date-note">Hijri date follows the Umm al-Qura calendar and can differ by a day from local moon sighting in Bangladesh. Bangla date follows the revised calendar of Bangladesh.</p>
+    <div class="progress" aria-labelledby="pr-h">
+      <p id="pr-h" class="progress-title"></p>
+      <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="pbar"><span id="pfill"></span></div>
+      <p class="fine" id="pr-text"></p>
     </div>
-
-    <svg class="skyline" viewBox="0 0 400 120" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
-      <g fill="#07241b" stroke="#c9a24b" stroke-opacity=".45" stroke-width=".8">
-        <path d="M140 120V80a60 60 0 0 1 120 0v40z"/>
-        <path d="M200 20v-9"/>
-        <path d="M90 120v-20a25 25 0 0 1 50 0v20z"/>
-        <path d="M260 120v-20a25 25 0 0 1 50 0v20z"/>
-        <rect x="56" y="48" width="14" height="72"/>
-        <path d="M54 48h18l-9-24z"/>
-        <rect x="330" y="48" width="14" height="72"/>
-        <path d="M328 48h18l-9-24z"/>
-        <path d="M0 119h400"/>
-        <path d="M185 120V98a15 15 0 0 1 30 0v22z" fill="#020806"/>
-      </g>
-      <g fill="#c9a24b">
-        <circle cx="63" cy="20" r="1.6"/>
-        <circle cx="337" cy="20" r="1.6"/>
-        <circle cx="200" cy="9" r="1.8"/>
-      </g>
-    </svg>
-  </header>
-
-  <!-- ============ THREE FACES ============ -->
-  <main>
-    <h2 class="visually-hidden">Time elapsed since her passing</h2>
-
-    <div class="faces">
-
-      <!-- FACE 01 -->
-      <section class="face face-years" aria-labelledby="f1-title">
-        <svg class="face-orn" aria-hidden="true"><use href="#i-star"/></svg>
-        <h3 class="face-title" id="f1-title">YEARS OF REMEMBRANCE</h3>
-        <div class="main-num">
-          <span class="num" id="y-years">0</span>
-          <span class="unit" id="y-years-l">YEARS</span>
-        </div>
-        <div class="sub-grid">
-          <div class="sub"><span class="num" id="y-months">00</span><span class="unit" id="y-months-l">MONTHS</span></div>
-          <div class="sub"><span class="num" id="y-days">00</span><span class="unit" id="y-days-l">DAYS</span></div>
-        </div>
-      </section>
-
-      <!-- FACE 02 -->
-      <section class="face face-months" aria-labelledby="f2-title">
-        <svg class="face-orn" aria-hidden="true"><use href="#i-arch"/></svg>
-        <h3 class="face-title" id="f2-title">DAYS OF REMEMBRANCE</h3>
-        <div class="main-num">
-          <span class="num" id="d-days">0</span>
-          <span class="unit" id="d-days-l">DAYS</span>
-        </div>
-        <div class="sub-grid">
-          <div class="sub"><span class="num" id="d-hours">00</span><span class="unit" id="d-hours-l">HOURS</span></div>
-          <div class="sub"><span class="num" id="d-minutes">00</span><span class="unit" id="d-minutes-l">MINUTES</span></div>
-        </div>
-      </section>
-
-      <!-- FACE 03 -->
-      <section class="face face-hours" aria-labelledby="f3-title">
-        <svg class="face-orn" aria-hidden="true"><use href="#i-crescent"/></svg>
-        <h3 class="face-title" id="f3-title">HOURS OF REMEMBRANCE</h3>
-        <div class="main-num">
-          <span class="num" id="h-hours">0</span>
-          <span class="unit" id="h-hours-l">HOURS</span>
-        </div>
-        <div class="sub-grid">
-          <div class="sub"><span class="num" id="h-minutes">00</span><span class="unit" id="h-minutes-l">MINUTES</span></div>
-          <div class="sub"><span class="num" id="h-seconds">00</span><span class="unit" id="h-seconds-l">SECONDS</span></div>
-        </div>
-      </section>
-
-    </div>
-
-    <p class="clock-note">Counted from 31 October 2026, 5:12 PM Bangladesh time. The count never resets and is recalculated in full each time this page opens.</p>
-
-    <!-- ============ MISSING HER ============ -->
-    <section class="miss reveal" aria-labelledby="miss-title">
-      <h2 class="section-title" id="miss-title">WORDS I COULD NOT SAY</h2>
-      <p class="miss-line" id="missLine" lang="bn">দাদু, তুমি নেই—কিন্তু তোমার দোয়া আজও আমার সঙ্গে আছে।</p>
-      <p class="miss-poem" lang="bn">ঘরের সেই কোণটা আজ ফাঁকা,<br>যেখানে তুমি বসতে।<br>তোমার কণ্ঠ, তোমার স্পর্শ, তোমার দোয়া,<br>সবকিছু এখন শুধু স্মৃতি।<br>তবু দোয়া শেষ হয় না, দাদু।<br>যতদিন বেঁচে আছি, তোমার জন্য হাত তুলব।</p>
-      <div class="miss-letter" lang="bn">
-        <p>প্রিয় দাদু,</p>
-        <p>আজ প্রতিটা মুহূর্তে তোমার অভাব বুঝি। ঘরটা আছে, মানুষগুলো আছে, শুধু তুমি নেই। যদি আর একবার তোমার পাশে বসতে পারতাম, তোমার কণ্ঠে আমার নাম শুনতে পারতাম।</p>
-        <p>চোখের পানি থামে না, দাদু। তবু আমি আল্লাহর কাছে তোমার জন্য দোয়া করি, যেন তিনি তোমার পথ সহজ করে দেন, তোমাকে ক্ষমা করেন এবং জান্নাতুল ফেরদাউসে তোমাকে স্থান দেন।</p>
-        <p>আমি তোমাকে ভালোবাসি, আজও, চিরদিন।</p>
-        <p class="miss-sign">— তোমার আদরের নাতি/নাতনি</p>
-      </div>
-    </section>
-
-    <!-- ============ GRIEF ============ -->
-    <section class="grief reveal" aria-labelledby="grief-title">
-      <h2 class="section-title" id="grief-title">WHEN THE HEART IS HEAVY</h2>
-      <p class="arabic grief-ar" lang="ar" dir="rtl">إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ</p>
-      <p class="dua-src">Qur'an 2:156</p>
-      <p class="dua-bn" lang="bn">নিশ্চয়ই আমরা আল্লাহরই এবং নিশ্চয়ই আমরা তাঁরই কাছে ফিরে যাব।</p>
-      <p class="grief-quote">Tears and sorrow are not weakness. The Prophet ﷺ wept for his son, and said: the eye sheds tears and the heart grieves, and we say only what pleases our Lord.</p>
-      <p class="dua-src">Sahih al-Bukhari 1303</p>
-      <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ أْجُرْنِي فِي مُصِيبَتِي وَأَخْلِفْ لِي خَيْرًا مِنْهَا</p>
-      <p class="dua-tr">Allahumma'jurni fi musibati wa akhlif li khayran minha.</p>
-      <p class="dua-bn" lang="bn">হে আল্লাহ! আমার এই মুসিবতে আমাকে প্রতিদান দিন এবং এর বিনিময়ে আমাকে উত্তম কিছু দান করুন।</p>
-      <p class="dua-src">Sahih Muslim 918</p>
-    </section>
-
-    <!-- ============ DUAS ============ -->
-    <section class="duas" aria-labelledby="duas-title">
-      <div class="rule" aria-hidden="true"><span></span><svg><use href="#i-star"/></svg><span></span></div>
-      <h2 class="section-title" id="duas-title">DUAS FOR MY BELOVED GRANDMOTHER</h2>
-      <p class="section-sub">Please remember her in your prayers.</p>
-
-      <p class="dua-guide">Begin with praise of Allah and blessings on the Prophet ﷺ, then ask for her, and end the same way, with Ameen. The Prophet ﷺ often repeated a du'a three times (Sahih Muslim 1794). No fixed number is required for any du'a below: the counter only helps you keep track, and you may repeat as many as you wish.</p>
-
-      <div class="journey" id="journey">
-        <div class="journey-top"><span>Dua journey</span><span><b id="jDone">0</b> of <b id="jTotal">29</b> du'as read</span></div>
-        <div class="journey-bar" aria-hidden="true"><i id="jBar"></i></div>
-        <div class="journey-meta"><span>Total recitations counted: <b id="jCount">0</b></span><button type="button" id="jReset">Start over</button></div>
-      </div>
-
-      <h3 class="dua-group">Begin with praise and blessings on the Prophet ﷺ</h3>
-
-      <article class="dua reveal" data-id="d01" data-track>
-        <h3 class="dua-title">Salawat on the Prophet ﷺ</h3>
-        <p class="dua-src">Sahih al-Bukhari 3370, Sahih Muslim 406</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا صَلَّيْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ، اللَّهُمَّ بَارِكْ عَلَى مُحَمَّدٍ وَعَلَى آلِ مُحَمَّدٍ كَمَا بَارَكْتَ عَلَى إِبْرَاهِيمَ وَعَلَى آلِ إِبْرَاهِيمَ إِنَّكَ حَمِيدٌ مَجِيدٌ</p>
-        <p class="dua-tr">Allahumma salli 'ala Muhammad wa 'ala ali Muhammad, kama sallayta 'ala Ibrahima wa 'ala ali Ibrahim, innaka Hamidun Majid. Allahumma barik 'ala Muhammad wa 'ala ali Muhammad, kama barakta 'ala Ibrahima wa 'ala ali Ibrahim, innaka Hamidun Majid.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! মুহাম্মাদ ﷺ ও তাঁর পরিবারের উপর রহমত বর্ষণ করুন, যেমন আপনি ইবরাহীম ও তাঁর পরিবারের উপর রহমত বর্ষণ করেছেন। নিশ্চয়ই আপনি প্রশংসিত ও মহিমান্বিত। হে আল্লাহ! মুহাম্মাদ ﷺ ও তাঁর পরিবারের উপর বরকত দান করুন, যেমন আপনি ইবরাহীম ও তাঁর পরিবারের উপর বরকত দান করেছেন। নিশ্চয়ই আপনি প্রশংসিত ও মহিমান্বিত।</p>
-      </article>
-
-      <h3 class="dua-group">Forgiveness and mercy</h3>
-
-      <article class="dua reveal" data-id="d02" data-track>
-        <h3 class="dua-title">For forgiveness</h3>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ اغْفِرْ لَهَا وَارْحَمْهَا وَعَافِهَا وَاعْفُ عَنْهَا</p>
-        <p class="dua-tr">Allahummaghfir laha, warhamha, wa 'afiha, wa'fu 'anha.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! আপনি তাঁকে ক্ষমা করুন, তাঁর প্রতি রহম করুন, তাঁকে শান্তি ও নিরাপত্তা দান করুন এবং তাঁর ভুলত্রুটি ক্ষমা করে দিন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d03" data-track>
-        <h3 class="dua-title">The Prophet's ﷺ du'a at the funeral prayer (shortened)</h3>
-        <p class="dua-src">Sahih Muslim 963 (adapted for her)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ اغْفِرْ لَهَا وَارْحَمْهَا وَعَافِهَا وَاعْفُ عَنْهَا وَأَكْرِمْ نُزُلَهَا وَوَسِّعْ مُدْخَلَهَا وَاغْسِلْهَا بِالْمَاءِ وَالثَّلْجِ وَالْبَرَدِ وَنَقِّهَا مِنَ الْخَطَايَا كَمَا يُنَقَّى الثَّوْبُ الْأَبْيَضُ مِنَ الدَّنَسِ وَأَبْدِلْهَا دَارًا خَيْرًا مِنْ دَارِهَا وَأَهْلًا خَيْرًا مِنْ أَهْلِهَا وَأَدْخِلْهَا الْجَنَّةَ وَأَعِذْهَا مِنْ عَذَابِ الْقَبْرِ وَعَذَابِ النَّارِ</p>
-        <p class="dua-tr">Allahummaghfir laha warhamha wa 'afiha wa'fu 'anha, wa akrim nuzulaha wa wassi' mudkhalaha, waghsilha bil-ma'i wath-thalji wal-barad, wa naqqiha minal-khataya kama yunaqqath-thawbul-abyadu minad-danas, wa abdilha daran khayran min dariha, wa ahlan khayran min ahliha, wa adkhilhal-Jannah, wa a'idhha min 'adhabil-qabri wa 'adhabin-nar.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁকে ক্ষমা করুন ও দয়া করুন, নিরাপত্তা দিন ও মাফ করে দিন। তাঁর আতিথেয়তা সম্মানজনক করুন, তাঁর প্রবেশস্থল প্রশস্ত করুন। পানি, বরফ ও শিলা দিয়ে তাঁকে ধুয়ে দিন এবং সাদা কাপড় যেমন ময়লা থেকে পরিষ্কার হয়, তেমনি গুনাহ থেকে তাঁকে পরিষ্কার করুন। তাঁর ঘরের চেয়ে উত্তম ঘর ও পরিবারের চেয়ে উত্তম পরিবার দান করুন, তাঁকে জান্নাতে প্রবেশ করান এবং কবরের ও জাহান্নামের আজাব থেকে রক্ষা করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d04" data-track>
-        <h3 class="dua-title">Raise her rank and light her grave</h3>
-        <p class="dua-src">Sahih Muslim 920 (the du'a of the Prophet ﷺ for Abu Salamah, said here for her)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ اغْفِرْ لَهَا وَارْفَعْ دَرَجَتَهَا فِي الْمَهْدِيِّينَ وَاخْلُفْهَا فِي عَقِبِهَا فِي الْغَابِرِينَ وَاغْفِرْ لَنَا وَلَهَا يَا رَبَّ الْعَالَمِينَ وَافْسَحْ لَهَا فِي قَبْرِهَا وَنَوِّرْ لَهَا فِيهِ</p>
-        <p class="dua-tr">Allahummaghfir laha warfa' darajataha fil-mahdiyyin, wakhlufha fi 'aqibiha fil-ghabirin, waghfir lana wa laha ya Rabbal-'alamin, wafsah laha fi qabriha wa nawwir laha fihi.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁকে ক্ষমা করুন, হিদায়াতপ্রাপ্তদের মধ্যে তাঁর মর্যাদা উঁচু করুন, যারা রয়ে গেছে তাদের মধ্যে তাঁর উত্তরসূরিদের দেখাশোনা করুন। হে বিশ্বজগতের প্রতিপালক! আমাদেরকে ও তাঁকে ক্ষমা করুন, তাঁর কবর প্রশস্ত করুন এবং তাঁর জন্য তা আলোকিত করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d05" data-track>
-        <h3 class="dua-title">Pardon, forgiveness and mercy</h3>
-        <p class="dua-src">Qur'an 2:286 (end)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا أَنْتَ مَوْلَانَا</p>
-        <p class="dua-tr">Wa'fu 'anna, waghfir lana, warhamna, anta mawlana.</p>
-        <p class="dua-bn" lang="bn">আমাদেরকে মার্জনা করুন, ক্ষমা করুন ও দয়া করুন; আপনিই আমাদের অভিভাবক।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d06" data-track>
-        <h3 class="dua-title">The best of those who show mercy</h3>
-        <p class="dua-src">Qur'an 23:118</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبِّ اغْفِرْ وَارْحَمْ وَأَنْتَ خَيْرُ الرَّاحِمِينَ</p>
-        <p class="dua-tr">Rabbi-ghfir warham wa anta khayrur-rahimin.</p>
-        <p class="dua-bn" lang="bn">হে আমার প্রতিপালক! ক্ষমা করুন ও দয়া করুন; আপনিই সর্বশ্রেষ্ঠ দয়ালু।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d07" data-track>
-        <h3 class="dua-title">Admit us into Your mercy</h3>
-        <p class="dua-src">Qur'an 7:151 (pray it for her and for ourselves)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبِّ اغْفِرْ لِي وَلِأَخِي وَأَدْخِلْنَا فِي رَحْمَتِكَ وَأَنْتَ أَرْحَمُ الرَّاحِمِينَ</p>
-        <p class="dua-tr">Rabbi-ghfir li wa li-akhi wa adkhilna fi rahmatika wa anta arhamur-rahimin.</p>
-        <p class="dua-bn" lang="bn">হে আমার প্রতিপালক! আমাকে ও আমার ভাইকে ক্ষমা করুন এবং আমাদেরকে আপনার রহমতের মধ্যে প্রবেশ করান; আপনি দয়ালুদের মধ্যে সর্বশ্রেষ্ঠ দয়ালু।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d08" data-track>
-        <h3 class="dua-title">Forgiveness for ourselves too</h3>
-        <p class="dua-src">Qur'an 7:23</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ</p>
-        <p class="dua-tr">Rabbana zalamna anfusana wa in lam taghfir lana wa tarhamna lanakunanna minal-khasirin.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমরা নিজেদের প্রতি জুলুম করেছি; আপনি যদি আমাদের ক্ষমা না করেন ও দয়া না করেন, তবে অবশ্যই আমরা ক্ষতিগ্রস্তদের অন্তর্ভুক্ত হব।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d09" data-track>
-        <h3 class="dua-title">For those who passed before us</h3>
-        <p class="dua-src">Qur'an 59:10</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِلَّذِينَ آمَنُوا رَبَّنَا إِنَّكَ رَءُوفٌ رَحِيمٌ</p>
-        <p class="dua-tr">Rabbanaghfir lana wa li-ikhwaninal-ladhina sabaquna bil-iman, wa la taj'al fi qulubina ghillan lilladhina amanu, Rabbana innaka Ra'ufur-Rahim.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমাদেরকে এবং ঈমানের সাথে আমাদের আগে যাঁরা গত হয়েছেন তাঁদেরকে ক্ষমা করুন, আর ঈমানদারদের বিরুদ্ধে আমাদের অন্তরে কোনো বিদ্বেষ রাখবেন না। হে আমাদের প্রতিপালক! আপনি তো অতি দয়ালু, পরম করুণাময়।</p>
-      </article>
-
-      <h3 class="dua-group">An easy and peaceful grave</h3>
-
-      <article class="dua reveal" data-id="d10" data-track>
-        <h3 class="dua-title">For a peaceful grave</h3>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ وَسِّعْ قَبْرَهَا وَنَوِّرْ لَهَا فِيهِ</p>
-        <p class="dua-tr">Allahumma wassi' qabraha wa nawwir laha fihi.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁর কবর প্রশস্ত করে দিন এবং তাঁর কবরকে নূরে আলোকিত করে দিন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d11" data-track>
-        <h3 class="dua-title">Make her steadfast</h3>
-        <p class="dua-src">Sunan Abi Dawud 3221 (the Prophet ﷺ asked this of people after a burial)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ اغْفِرْ لَهَا اللَّهُمَّ ثَبِّتْهَا</p>
-        <p class="dua-tr">Allahummaghfir laha. Allahumma thabbit-ha.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁকে ক্ষমা করুন। হে আল্লাহ! তাঁকে (কবরের প্রশ্নোত্তরে) অবিচল রাখুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d12" data-track>
-        <h3 class="dua-title">Under Your protection</h3>
-        <p class="dua-src">Sunan Abi Dawud 3202, Sunan Ibn Majah 1499 (adapted for her)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ إِنَّ جَدَّتِي فِي ذِمَّتِكَ وَحَبْلِ جِوَارِكَ فَقِهَا مِنْ فِتْنَةِ الْقَبْرِ وَعَذَابِ النَّارِ وَأَنْتَ أَهْلُ الْوَفَاءِ وَالْحَقِّ فَاغْفِرْ لَهَا وَارْحَمْهَا إِنَّكَ أَنْتَ الْغَفُورُ الرَّحِيمُ</p>
-        <p class="dua-tr">Allahumma inna jaddati fi dhimmatika wa habli jiwarika, faqiha min fitnatil-qabri wa 'adhabin-nar, wa anta ahlul-wafa'i wal-haqq, faghfir laha warhamha, innaka antal-Ghafurur-Rahim.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! আমার দাদী আপনার জিম্মায় ও আপনার আশ্রয়ে আছেন। তাঁকে কবরের ফিতনা ও জাহান্নামের আজাব থেকে রক্ষা করুন। আপনি প্রতিশ্রুতি পূরণকারী ও সত্যের অধিকারী। তাঁকে ক্ষমা করুন ও দয়া করুন; নিশ্চয়ই আপনি অতি ক্ষমাশীল, পরম দয়ালু।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d13" data-track>
-        <h3 class="dua-title">For mercy and protection</h3>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ أَجِرْهَا مِنْ عَذَابِ الْقَبْرِ وَعَذَابِ النَّارِ</p>
-        <p class="dua-tr">Allahumma ajirha min 'adhabil-qabri wa 'adhabin-nar.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁকে কবরের আজাব ও জাহান্নামের আজাব থেকে রক্ষা করুন।</p>
-      </article>
-
-      <h3 class="dua-group">An easy Reckoning and safety from the Fire</h3>
-
-      <article class="dua reveal" data-id="d14" data-track>
-        <h3 class="dua-title">Make her reckoning easy</h3>
-        <p class="dua-src">Musnad Ahmad (the du'a of the Prophet ﷺ taught to Aisha رضي الله عنها)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ حَاسِبْهَا حِسَابًا يَسِيرًا</p>
-        <p class="dua-tr">Allahumma hasibha hisaban yasira.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁর হিসাব সহজ করে নিন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d15" data-track>
-        <h3 class="dua-title">For the believers on the Day of Reckoning</h3>
-        <p class="dua-src">Qur'an 14:41</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ</p>
-        <p class="dua-tr">Rabbanaghfir li wa li-walidayya wa lil-mu'minina yawma yaqumul-hisab.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! হিসাব কায়েম হওয়ার দিন আমাকে, আমার পিতা-মাতাকে এবং সকল মুমিনকে ক্ষমা করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d16" data-track>
-        <h3 class="dua-title">For all believing men and women</h3>
-        <p class="dua-src">Qur'an 71:28</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِمَنْ دَخَلَ بَيْتِيَ مُؤْمِنًا وَلِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ</p>
-        <p class="dua-tr">Rabbi-ghfir li wa li-walidayya wa li-man dakhala baytiya mu'minan wa lil-mu'minina wal-mu'minat.</p>
-        <p class="dua-bn" lang="bn">হে আমার প্রতিপালক! আমাকে, আমার পিতা-মাতাকে, যে ঈমানদার হয়ে আমার ঘরে প্রবেশ করে তাকে এবং সকল ঈমানদার নর-নারীকে ক্ষমা করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d17" data-track>
-        <h3 class="dua-title">Good in this life and the next</h3>
-        <p class="dua-src">Qur'an 2:201</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</p>
-        <p class="dua-tr">Rabbana atina fid-dunya hasanatan wa fil-akhirati hasanatan wa qina 'adhaban-nar.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমাদেরকে দুনিয়াতে কল্যাণ দিন এবং আখিরাতেও কল্যাণ দিন, আর আমাদেরকে জাহান্নামের আজাব থেকে রক্ষা করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d18" data-track>
-        <h3 class="dua-title">Our faith, and protection from the Fire</h3>
-        <p class="dua-src">Qur'an 3:16</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ</p>
-        <p class="dua-tr">Rabbana innana amanna faghfir lana dhunubana wa qina 'adhaban-nar.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমরা ঈমান এনেছি; অতএব আমাদের গুনাহ ক্ষমা করুন এবং আমাদেরকে জাহান্নামের আজাব থেকে রক্ষা করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d19" data-track>
-        <h3 class="dua-title">Turn the punishment of Hell away</h3>
-        <p class="dua-src">Qur'an 25:65</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا</p>
-        <p class="dua-tr">Rabbanas-rif 'anna 'adhaba Jahannam, inna 'adhabaha kana gharama.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমাদের থেকে জাহান্নামের আজাব সরিয়ে দিন; নিশ্চয়ই তার আজাব অবিচ্ছিন্ন বিপদ।</p>
-      </article>
-
-      <h3 class="dua-group">Light, joy and Jannatul Firdaus</h3>
-
-      <article class="dua reveal" data-id="d20" data-track>
-        <h3 class="dua-title">For Jannah</h3>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ أَدْخِلْهَا الْجَنَّةَ الْفِرْدَوْسَ الْأَعْلَى</p>
-        <p class="dua-tr">Allahumma adkhilha al-Jannata al-Firdaws al-A'la.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! তাঁকে জান্নাতুল ফেরদাউসের সর্বোচ্চ মর্যাদা দান করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d21" data-track>
-        <h3 class="dua-title">Complete our light</h3>
-        <p class="dua-src">Qur'an 66:8</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا إِنَّكَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ</p>
-        <p class="dua-tr">Rabbana atmim lana nurana waghfir lana innaka 'ala kulli shay'in qadir.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমাদের নূরকে পূর্ণ করে দিন এবং আমাদেরকে ক্ষমা করুন; নিশ্চয়ই আপনি সবকিছুর উপর ক্ষমতাবান।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d22" data-track>
-        <h3 class="dua-title">To be gathered with the righteous</h3>
-        <p class="dua-src">Qur'an 3:193</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا فَاغْفِرْ لَنَا ذُنُوبَنَا وَكَفِّرْ عَنَّا سَيِّئَاتِنَا وَتَوَفَّنَا مَعَ الْأَبْرَارِ</p>
-        <p class="dua-tr">Rabbana faghfir lana dhunubana wa kaffir 'anna sayyi'atina wa tawaffana ma'al-abrar.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমাদের গুনাহ ক্ষমা করুন, আমাদের মন্দ কাজগুলো মোচন করুন এবং আমাদেরকে সৎকর্মশীলদের সাথে মৃত্যু দিন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d23" data-track>
-        <h3 class="dua-title">Gardens of Eden</h3>
-        <p class="dua-src">Qur'an 40:8</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا وَأَدْخِلْهُمْ جَنَّاتِ عَدْنٍ الَّتِي وَعَدْتَهُمْ وَمَنْ صَلَحَ مِنْ آبَائِهِمْ وَأَزْوَاجِهِمْ وَذُرِّيَّاتِهِمْ إِنَّكَ أَنْتَ الْعَزِيزُ الْحَكِيمُ</p>
-        <p class="dua-tr">Rabbana wa adkhilhum jannati 'adnin allati wa'attahum wa man salaha min aba'ihim wa azwajihim wa dhurriyyatihim, innaka antal-'Azizul-Hakim.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! তাদেরকে স্থায়ী জান্নাতে প্রবেশ করান, যার প্রতিশ্রুতি আপনি তাদেরকে দিয়েছেন, এবং তাদের পিতা-মাতা, স্বামী-স্ত্রী ও সন্তানদের মধ্যে যারা সৎকর্মশীল তাদেরকেও। নিশ্চয়ই আপনি পরাক্রমশালী, প্রজ্ঞাময়।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d24" data-track>
-        <h3 class="dua-title">A house for her in Jannah</h3>
-        <p class="dua-src">Qur'an 66:11 (the du'a of Asiyah, adapted for her)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبِّ ابْنِ لَهَا عِنْدَكَ بَيْتًا فِي الْجَنَّةِ</p>
-        <p class="dua-tr">Rabbi-bni laha 'indaka baytan fil-Jannah.</p>
-        <p class="dua-bn" lang="bn">হে আমার প্রতিপালক! আপনার কাছে জান্নাতে তাঁর জন্য একটি ঘর নির্মাণ করে দিন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d25" data-track>
-        <h3 class="dua-title">The delight of seeing Your Face</h3>
-        <p class="dua-src">Sunan an-Nasa'i 1305 (part of a longer du'a of the Prophet ﷺ)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ إِنِّي أَسْأَلُكَ لَذَّةَ النَّظَرِ إِلَى وَجْهِكَ وَالشَّوْقَ إِلَى لِقَائِكَ</p>
-        <p class="dua-tr">Allahumma inni as'aluka ladhdhatan-nazari ila wajhika wash-shawqa ila liqa'ik.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! আমি আপনার কাছে প্রার্থনা করি আপনার চেহারার দিকে তাকানোর স্বাদ এবং আপনার সাক্ষাতের আকাঙ্ক্ষা। (এটি আপনি তাঁর জন্য এবং নিজের জন্য চাইতে পারেন।)</p>
-      </article>
-
-      <h3 class="dua-group">Mercy for her, and for all of us</h3>
-
-      <article class="dua reveal" data-id="d26" data-track>
-        <h3 class="dua-title">For eternal mercy</h3>
-        <p class="dua-src">Inspired by Qur'an 17:24</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبِّ ارْحَمْهَا كَمَا رَبَّتْنِي صَغِيرًا</p>
-        <p class="dua-tr">Rabbi irhamha kama rabbatni saghira.</p>
-        <p class="dua-bn" lang="bn">হে আমার প্রতিপালক! তিনি যেমন ছোটবেলায় আমাকে স্নেহ-মমতায় লালন-পালন করেছেন, আপনিও তাঁর প্রতি তেমন রহম করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d27" data-track>
-        <h3 class="dua-title">For all of us</h3>
-        <p class="dua-src">Sunan at-Tirmidhi 1024, Sunan Abi Dawud 3201</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">اللَّهُمَّ اغْفِرْ لِحَيِّنَا وَمَيِّتِنَا وَشَاهِدِنَا وَغَائِبِنَا وَصَغِيرِنَا وَكَبِيرِنَا وَذَكَرِنَا وَأُنْثَانَا</p>
-        <p class="dua-tr">Allahummaghfir li-hayyina wa mayyitina, wa shahidina wa gha'ibina, wa saghirina wa kabirina, wa dhakarina wa unthana.</p>
-        <p class="dua-bn" lang="bn">হে আল্লাহ! আমাদের জীবিত ও মৃত, উপস্থিত ও অনুপস্থিত, ছোট ও বড়, পুরুষ ও নারী সবাইকে ক্ষমা করুন।</p>
-      </article>
-
-      <article class="dua reveal" data-id="d28" data-track>
-        <h3 class="dua-title">Accept our du'as</h3>
-        <p class="dua-src">Qur'an 2:127</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ</p>
-        <p class="dua-tr">Rabbana taqabbal minna, innaka antas-Sami'ul-'Alim.</p>
-        <p class="dua-bn" lang="bn">হে আমাদের প্রতিপালক! আমাদের পক্ষ থেকে কবুল করুন; নিশ্চয়ই আপনি সর্বশ্রোতা, সর্বজ্ঞ।</p>
-      </article>
-
-      <h3 class="dua-group">When you visit her grave</h3>
-
-      <article class="dua reveal" data-id="d29" data-track>
-        <h3 class="dua-title">Greeting the people of the graves</h3>
-        <p class="dua-src">Sahih Muslim 975</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">السَّلَامُ عَلَيْكُمْ أَهْلَ الدِّيَارِ مِنَ الْمُؤْمِنِينَ وَالْمُسْلِمِينَ وَإِنَّا إِنْ شَاءَ اللَّهُ بِكُمْ لَلَاحِقُونَ نَسْأَلُ اللَّهَ لَنَا وَلَكُمُ الْعَافِيَةَ</p>
-        <p class="dua-tr">As-salamu 'alaykum ahlad-diyari minal-mu'minina wal-muslimin, wa inna in sha'Allahu bikum lahiqun, nas'alullaha lana wa lakumul-'afiyah.</p>
-        <p class="dua-bn" lang="bn">হে কবরবাসী মুমিন ও মুসলিমগণ, তোমাদের উপর শান্তি বর্ষিত হোক। ইন শা আল্লাহ আমরাও তোমাদের সাথে মিলিত হব। আমরা আল্লাহর কাছে আমাদের ও তোমাদের জন্য নিরাপত্তা চাই।</p>
-      </article>
-
-      <h3 class="dua-group">Words of hope to hold on to</h3>
-      <p class="dua-group-sub">These are Allah's promises and the Prophet's ﷺ words. They are not duas to count, but to keep in your heart.</p>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">Firmness in this life and the next</h3>
-        <p class="dua-src">Qur'an 14:27</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">يُثَبِّتُ اللَّهُ الَّذِينَ آمَنُوا بِالْقَوْلِ الثَّابِتِ فِي الْحَيَاةِ الدُّنْيَا وَفِي الْآخِرَةِ</p>
-        <p class="dua-bn" lang="bn">আল্লাহ ঈমানদারদেরকে সুদৃঢ় বাণীর মাধ্যমে দুনিয়ার জীবনে ও আখিরাতে অবিচল রাখেন।</p>
-      </article>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">O tranquil soul</h3>
-        <p class="dua-src">Qur'an 89:27-30</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">يَا أَيَّتُهَا النَّفْسُ الْمُطْمَئِنَّةُ ارْجِعِي إِلَىٰ رَبِّكِ رَاضِيَةً مَرْضِيَّةً فَادْخُلِي فِي عِبَادِي وَادْخُلِي جَنَّتِي</p>
-        <p class="dua-bn" lang="bn">হে প্রশান্ত আত্মা! তুমি তোমার প্রতিপালকের কাছে ফিরে এসো সন্তুষ্ট ও সন্তোষভাজন হয়ে। অতঃপর আমার বান্দাদের মধ্যে শামিল হও এবং আমার জান্নাতে প্রবেশ করো। (দোয়া করুন, আল্লাহ যেন তাঁকে এভাবেই ডাকেন।)</p>
-      </article>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">What is hidden for them</h3>
-        <p class="dua-src">Qur'an 32:17</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">فَلَا تَعْلَمُ نَفْسٌ مَا أُخْفِيَ لَهُمْ مِنْ قُرَّةِ أَعْيُنٍ جَزَاءً بِمَا كَانُوا يَعْمَلُونَ</p>
-        <p class="dua-bn" lang="bn">কেউই জানে না তাদের জন্য চোখ জুড়ানো কী কী লুকিয়ে রাখা হয়েছে, তাদের কৃতকর্মের প্রতিদানস্বরূপ।</p>
-      </article>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">What no eye has seen</h3>
-        <p class="dua-src">Sahih al-Bukhari 3244, Sahih Muslim 2824 (hadith qudsi)</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">أَعْدَدْتُ لِعِبَادِيَ الصَّالِحِينَ مَا لَا عَيْنٌ رَأَتْ وَلَا أُذُنٌ سَمِعَتْ وَلَا خَطَرَ عَلَى قَلْبِ بَشَرٍ</p>
-        <p class="dua-bn" lang="bn">আমি আমার নেক বান্দাদের জন্য এমন কিছু প্রস্তুত করে রেখেছি, যা কোনো চোখ দেখেনি, কোনো কান শোনেনি এবং কোনো মানুষের অন্তরে কল্পনাও আসেনি।</p>
-      </article>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">Ask for Firdaus</h3>
-        <p class="dua-src">Sahih al-Bukhari 2790</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">فَإِذَا سَأَلْتُمُ اللَّهَ فَاسْأَلُوهُ الْفِرْدَوْسَ فَإِنَّهُ أَوْسَطُ الْجَنَّةِ وَأَعْلَى الْجَنَّةِ</p>
-        <p class="dua-bn" lang="bn">তোমরা আল্লাহর কাছে চাইলে ফিরদাউস চাও; কারণ তা জান্নাতের সবচেয়ে মধ্যবর্তী ও সর্বোচ্চ স্থান।</p>
-      </article>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">A promise to hold on to</h3>
-        <p class="dua-src">Qur'an 46:16</p>
-        <p class="arabic dua-ar" lang="ar" dir="rtl">أُولَٰئِكَ الَّذِينَ نَتَقَبَّلُ عَنْهُمْ أَحْسَنَ مَا عَمِلُوا وَنَتَجَاوَزُ عَنْ سَيِّئَاتِهِمْ فِي أَصْحَابِ الْجَنَّةِ وَعْدَ الصِّدْقِ الَّذِي كَانُوا يُوعَدُونَ</p>
-        <p class="dua-bn" lang="bn">এরাই তারা, যাদের উত্তম আমলগুলো আমি কবুল করি এবং যাদের মন্দ কাজগুলো ক্ষমা করে দিই; তারা জান্নাতবাসীদের অন্তর্ভুক্ত। এটি সেই সত্য প্রতিশ্রুতি, যা তাদেরকে দেওয়া হয়েছিল।</p>
-      </article>
-
-      <h3 class="dua-group">Deeds that can reach her</h3>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">Ongoing charity, knowledge and a child's prayer</h3>
-        <p class="dua-src">Sahih Muslim 1631 (meaning)</p>
-        <p class="dua-bn" lang="bn">মানুষ মারা গেলে তার আমল বন্ধ হয়ে যায়, তিনটি ছাড়া: সদকায়ে জারিয়া, উপকারী ইলম, আর এমন নেক সন্তান যে তার জন্য দোয়া করে।</p>
-      </article>
-
-      <article class="dua dua-hope reveal">
-        <h3 class="dua-title">Sadaqah in her name</h3>
-        <p class="dua-src">Sahih al-Bukhari, Book of Wills; Sunan Abi Dawud, Book of Zakat</p>
-        <p class="dua-bn" lang="bn">এক সাহাবি জিজ্ঞেস করেছিলেন, মায়ের পক্ষ থেকে সদকা করলে কি তাঁর উপকার হবে? রাসূলুল্লাহ ﷺ বললেন, হ্যাঁ। পানির ব্যবস্থা করাকে তিনি উত্তম সদকাগুলোর একটি বলেছেন।</p>
-        <p class="dua-tr">Give sadaqah in her name, help provide clean water, and keep praying for her. Scholars differ on whether Qur'an recitation reaches the dead, so please ask a trusted scholar about that.</p>
-      </article>
-
-      <p class="dua-note">May Allah forgive her, illuminate her grave, grant her peace, accept her good deeds, and bless her with Jannatul Firdaus. Ameen.</p>
-    </section>
-
-    <!-- ============ VISITOR ============ -->
-    <section class="visitor reveal" aria-labelledby="visitor-title">
-      <svg class="face-orn" aria-hidden="true"><use href="#i-crescent"/></svg>
-      <h2 class="section-title" id="visitor-title">PLEASE MAKE A DU'A</h2>
-      <div class="visitor-text" lang="bn">
-        <p>আপনি যদি এই স্মৃতির পাতায় এসে থাকেন, অনুগ্রহ করে আমার প্রিয় দাদীর জন্য একটি দোয়া করবেন।</p>
-        <p>আল্লাহ যেন তাঁর সকল গুনাহ ক্ষমা করে দেন, তাঁর কবরকে প্রশস্ত ও নূরে আলোকিত করে দেন, তাঁকে কবরের যাবতীয় কষ্ট থেকে রক্ষা করেন এবং জান্নাতুল ফেরদাউস নসিব করেন।</p>
-        <p>আমিন।</p>
-      </div>
-      <button type="button" class="ameen-btn" id="ameenBtn" aria-controls="ameenNote" aria-expanded="false">
-        <span class="arabic" lang="ar">آمِين</span>
-        <span>Ameen</span>
-      </button>
-      <p class="ameen-note" id="ameenNote" role="status" aria-live="polite" hidden>
-        Ameen. May Allah accept every du'a made for her. Jazakumullahu khayran for remembering her.
-      </p>
-    </section>
-  </main>
-
-  <!-- ============ FOOTER ============ -->
-  <footer class="final reveal">
-    <div class="rule" aria-hidden="true"><span></span><svg><use href="#i-star"/></svg><span></span></div>
-    <p class="final-main">Forever Remembered. Always in Our Du'as.</p>
-    <p class="final-sub">May Allah grant my beloved grandmother Jannatul Firdaus. Ameen.</p>
-  </footer>
-
-</div>
-
-<noscript><p class="noscript">JavaScript is needed to show the live count. Memorial date: 31 October 2026, 5:12 PM, Bangladesh time.</p></noscript>
+  </section>
+
+  <section id="duas" aria-labelledby="duas-h">
+    <h2 id="duas-h" class="section-title" data-i18n="duas_title">DUAS FOR MY BELOVED DADI</h2>
+    <p class="section-sub" data-i18n="duas_sub">Authentic Supplications from the Qur'an and Sunnah.</p>
+    <div id="featured"></div>
+    <div id="categories"></div>
+    <p class="fine note-box" data-i18n="accuracy_note"></p>
+  </section>
+
+  <section id="daily" aria-labelledby="daily-h">
+    <h2 id="daily-h" class="section-title" data-i18n="daily_title">Daily dua</h2>
+    <div id="daily-card"></div>
+    <button type="button" class="btn" id="another" data-i18n="another">READ ANOTHER DUA</button>
+  </section>
+
+  <section id="howlong" class="panel" aria-labelledby="hl-h">
+    <h2 id="hl-h" class="section-title small" data-i18n="hl_title">HOW LONG SHOULD I READ A DUA?</h2>
+    <p data-i18n="hl_en"></p>
+    <p lang="bn" class="bn-copy" data-i18n="hl_bn"></p>
+    <p class="strong" data-i18n="hl_add"></p>
+  </section>
+
+  <section id="visitor" class="panel" aria-labelledby="vp-h">
+    <h2 id="vp-h" class="section-title small" data-i18n="vp_title">PLEASE REMEMBER DADI IN YOUR DUAS</h2>
+    <div data-i18n-paras="vp_text"></div>
+    <button type="button" class="btn" id="ameen" data-i18n="ameen">Ameen</button>
+    <p class="fine" id="ameen-msg" role="status"></p>
+  </section>
+
+</main>
+
+<footer class="final">
+  <p class="final-title" data-i18n="final_title">FOREVER IN OUR HEARTS.<br>ALWAYS IN OUR DUAS.</p>
+  <p class="calli" lang="ar" dir="rtl">اللَّهُمَّ اغْفِرْ لَهَا وَارْحَمْهَا</p>
+  <p class="final-line" data-i18n="final_1"></p>
+  <p class="bn-copy final-line" lang="bn">হে আল্লাহ! আমার দাদীকে ক্ষমা করুন এবং তাঁর প্রতি রহম করুন।</p>
+  <p class="calli" lang="ar" dir="rtl">اللَّهُمَّ أَدْخِلْهَا الْفِرْدَوْسَ الْأَعْلَى</p>
+  <p class="final-line" data-i18n="final_2"></p>
+  <p class="bn-copy final-line" lang="bn">হে আল্লাহ! তাঁকে জান্নাতুল ফেরদাউস দান করুন।</p>
+  <p class="calli" lang="ar" dir="rtl">آمِين يَا رَبَّ الْعَالَمِينَ</p>
+  <p lang="bn" class="bn-copy">আমিন, ইয়া রব্বাল আলামিন।</p>
+</footer>
+
+<noscript><p style="padding:1rem;color:#f4efe1">Please enable JavaScript to see the memorial counters and duas.</p></noscript>
 <script src="script.js"></script>
 </body>
 </html>

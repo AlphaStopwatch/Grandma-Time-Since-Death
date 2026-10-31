@@ -1,9 +1,9 @@
-/* Caches the memorial files so the page opens offline. Time is never cached. */
-var CACHE = 'eternal-memorial-v2';
-var FILES = ['./', './index.html', './style.css', './script.js'];
+'use strict';
+var CACHE = 'dadi-memorial-v1';
+var ASSETS = ['./', 'index.html', 'style.css', 'script.js', 'duas.json'];
 
 self.addEventListener('install', function (e) {
-  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(FILES); }).then(function () { return self.skipWaiting(); }));
+  e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(ASSETS); }).then(function () { return self.skipWaiting(); }));
 });
 
 self.addEventListener('activate', function (e) {
@@ -16,14 +16,20 @@ self.addEventListener('activate', function (e) {
 
 self.addEventListener('fetch', function (e) {
   var req = e.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
+  var url = new URL(req.url);
+  // Only same-origin GET requests. Time-sync probes (HEAD / ?timesync) and external time APIs go straight to the network.
+  if (req.method !== 'GET' || url.origin !== self.location.origin || url.search.indexOf('timesync') !== -1) return;
+
   e.respondWith(
-    caches.match(req).then(function (cached) {
-      var net = fetch(req).then(function (res) {
-        if (res && res.ok) { var copy = res.clone(); caches.open(CACHE).then(function (c) { c.put(req, copy); }); }
+    caches.match(req, { ignoreSearch: true }).then(function (cached) {
+      var network = fetch(req).then(function (res) {
+        if (res && res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (c) { c.put(req, copy); });
+        }
         return res;
-      }).catch(function () { return cached || caches.match('./index.html'); });
-      return cached || net;
+      }).catch(function () { return cached; });
+      return cached || network;
     })
   );
 });

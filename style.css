@@ -1,0 +1,24 @@
+:root{--bg:#050b09;--em:#0b3b2c;--fg:#06231a;--gold:#c9a24b;--ch:#e6d3a3;--iv:#f4efe1;--ch2:#161d1b}
+*{box-sizing:border-box;min-width:0}html{-webkit-text-size-adjust:100%}
+body{margin:0;max-width:100%;overflow-x:hidden;color:var(--iv);font:17px/1.65 Georgia,"Times New Roman",serif;
+background:radial-gradient(ellipse at 50% -10%,#0d4a37 0,transparent 60%),repeating-conic-gradient(from 45deg at 50% 50%,#08130f 0 25%,#0a1914 0 50%) 0 0/48px 48px,var(--bg)}
+h1,h2,h3{font-weight:400;margin:.3em 0;color:var(--ch)}h1{font-size:clamp(3rem,14vw,6rem);letter-spacing:.08em;text-align:center}h1 span{font-size:.45em;letter-spacing:0}
+h2{font-size:clamp(1.5rem,5vw,2.2rem);text-align:center}h3{font-size:.95rem}
+.hero,main,footer{width:100%;max-width:1000px;margin:0 auto;padding:1rem 12px}.hero{text-align:center}
+.sub{color:var(--ch);text-align:center;margin:.3em 0}
+.card{background:linear-gradient(160deg,var(--fg),var(--ch2));border:1px solid var(--gold);border-radius:14px;padding:14px;contain:layout paint;overflow:hidden}
+.cals{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:1rem 0}.cals p{margin:0;font-size:1.05rem}
+.adj{display:flex;gap:6px;justify-content:center;margin-top:6px}small{color:#b9ad8c;display:block}
+button,select,input{font:inherit;color:var(--iv);background:#0a1c15;border:1px solid var(--gold);border-radius:8px;padding:6px 10px}
+button{cursor:pointer;min-height:40px}button.on,button:hover{background:var(--gold);color:#050b09}:focus-visible{outline:3px solid var(--ch);outline-offset:2px}
+.status{font-weight:bold;letter-spacing:.05em;font-size:.9rem}.status.ok{color:#7fe3a8}.status.off{color:#ffd37a}.status.bad{color:#ff9a8a}
+.main{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.u{border:1px solid var(--gold);border-radius:12px;padding:12px 4px;background:#07150f}
+.u b{display:block;font-size:clamp(1.8rem,8vw,3.2rem);font-weight:400;color:var(--ch);font-variant-numeric:tabular-nums;line-height:1.1}.u i,.face i{font-style:normal;font-size:.8rem;color:#b9ad8c}
+@media(min-width:760px){.main{grid-template-columns:repeat(6,1fr)}}
+.faces{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:10px;margin:1rem 0}
+.face{text-align:center}.face b{display:block;font-weight:400;font-size:clamp(1.3rem,6vw,2rem);color:var(--ch);overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.prayer,.memorial,.dua{margin:1.2rem 0}.ar{font-family:"Noto Naskh Arabic","Amiri","Scheherazade New","Traditional Arabic",serif;font-size:32px;line-height:2;color:var(--ch);text-align:center}
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:1rem 0}.tools input[type=search]{flex:1 1 180px}.tools label{display:flex;gap:6px;align-items:center;font-size:.85rem}
+.dua h3{text-align:left}.dua .meta{font-size:.85rem;color:#b9ad8c}.dua .rep{border-left:3px solid var(--gold);padding-left:8px;font-size:.9rem}.dua .row{display:flex;gap:6px;flex-wrap:wrap}
+.lvl{text-align:center;color:var(--gold);margin:1.2rem 0 .2rem}footer{text-align:center;color:var(--ch)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

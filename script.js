@@ -154,6 +154,12 @@
     setText('curMonth', MONTHS[cur.getUTCMonth()]);
     setText('curYear', String(cur.getUTCFullYear()));
     setText('curTime', time12(cur));
+    var dayKey = cur.getUTCFullYear() * 10000 + (cur.getUTCMonth() + 1) * 100 + cur.getUTCDate();
+    if (dayKey !== cache.dayKey) {
+      cache.dayKey = dayKey;
+      setText('curHijri', hijriText(cur.getUTCFullYear(), cur.getUTCMonth(), cur.getUTCDate()));
+      setText('curBangla', banglaText(cur.getUTCFullYear(), cur.getUTCMonth(), cur.getUTCDate()));
+    }
 
     updateBadge();
   }
@@ -168,6 +174,76 @@
       badge.textContent = text;
       badge.setAttribute('data-state', live ? 'online' : 'offline');
     }
+  }
+
+  /* ---------- Hijri and Bangla dates ---------- */
+  var AR_MONTHS = ['محرم', 'صفر', 'ربيع الأول', 'ربيع الآخر', 'جمادى الأولى', 'جمادى الآخرة', 'رجب', 'شعبان', 'رمضان', 'شوال', 'ذو القعدة', 'ذو الحجة'];
+  var AR_DAYS = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+  var BN_MONTHS = ['বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন', 'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র'];
+  var BN_DAYS = ['রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার', 'শনিবার'];
+  var BN_DIGITS = '০১২৩৪৫৬৭৮৯';
+  var AR_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+  // Revised Bangla calendar (Bangladesh): [Gregorian month 0-11, day, Bangla month index], in calendar order.
+  var BN_STARTS = [[0, 14, 9], [1, 13, 10], [2, 15, 11], [3, 14, 0], [4, 15, 1], [5, 15, 2],
+                   [6, 16, 3], [7, 16, 4], [8, 16, 5], [9, 16, 6], [10, 15, 7], [11, 15, 8]];
+
+  function toDigits(n, set) {
+    return String(n).replace(/\d/g, function (c) { return set.charAt(+c); });
+  }
+
+  function banglaText(y, m0, d) {
+    var idx = -1, i;
+    for (i = 0; i < BN_STARTS.length; i++) {
+      var s = BN_STARTS[i];
+      if (m0 > s[0] || (m0 === s[0] && d >= s[1])) idx = i;
+    }
+    var startUtc, month;
+    if (idx < 0) { startUtc = Date.UTC(y - 1, 11, 15); month = 8; }          // 1-13 January: still Poush
+    else { startUtc = Date.UTC(y, BN_STARTS[idx][0], BN_STARTS[idx][1]); month = BN_STARTS[idx][2]; }
+    var day = Math.round((Date.UTC(y, m0, d) - startUtc) / 86400000) + 1;
+    var year = (m0 > 3 || (m0 === 3 && d >= 14)) ? y - 593 : y - 594;
+    var wd = new Date(Date.UTC(y, m0, d)).getUTCDay();
+    return BN_DAYS[wd] + ', ' + toDigits(day, BN_DIGITS) + ' ' + BN_MONTHS[month] + ' ' + toDigits(year, BN_DIGITS) + ' বঙ্গাব্দ';
+  }
+
+  // Tabular civil Islamic calendar (used only when the browser has no Umm al-Qura calendar).
+  function civilHijri(y, m, d) {
+    var a = Math.floor((14 - m) / 12), yy = y + 4800 - a, mm = m + 12 * a - 3;
+    var jd = d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4) - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+    var l = jd - 1948440 + 10632;
+    var n = Math.floor((l - 1) / 10631);
+    l = l - 10631 * n + 354;
+    var j = Math.floor((10985 - l) / 5316) * Math.floor((50 * l) / 17719) + Math.floor(l / 5670) * Math.floor((43 * l) / 15238);
+    l = l - Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) - Math.floor(j / 16) * Math.floor((15238 * j) / 43) + 29;
+    var month = Math.floor((24 * l) / 709);
+    return { year: 30 * n + j - 30, month: month, day: l - Math.floor((709 * month) / 24) };
+  }
+
+  var hijriFmt = null, hijriTried = false;
+  function hijriParts(y, m0, d) {
+    if (!hijriTried) {
+      hijriTried = true;
+      try {
+        var f = new Intl.DateTimeFormat('en-u-ca-islamic-umalqura', { day: 'numeric', month: 'numeric', year: 'numeric', timeZone: 'UTC' });
+        if (f.resolvedOptions().calendar === 'islamic-umalqura') hijriFmt = f;
+      } catch (e) { hijriFmt = null; }
+    }
+    if (hijriFmt) {
+      try {
+        var out = {}, parts = hijriFmt.formatToParts(new Date(Date.UTC(y, m0, d, 12)));
+        for (var i = 0; i < parts.length; i++) {
+          if (parts[i].type === 'day' || parts[i].type === 'month' || parts[i].type === 'year') out[parts[i].type] = parseInt(parts[i].value, 10);
+        }
+        if (out.day && out.month && out.year) return out;
+      } catch (e) { /* fall through */ }
+    }
+    return civilHijri(y, m0 + 1, d);
+  }
+
+  function hijriText(y, m0, d) {
+    var p = hijriParts(y, m0, d);
+    var wd = new Date(Date.UTC(y, m0, d)).getUTCDay();
+    return AR_DAYS[wd] + '، ' + toDigits(p.day, AR_DIGITS) + ' ' + AR_MONTHS[p.month - 1] + ' ' + toDigits(p.year, AR_DIGITS) + ' هـ';
   }
 
   /* ---------- ticking (aligned to second boundaries, no drift) ---------- */
@@ -297,6 +373,14 @@
         s.style.animationDelay = (-Math.random() * 28).toFixed(1) + 's';
         frag.appendChild(s);
       }
+      for (i = 0; i < 10; i++) {          // faint, slow rain
+        s = document.createElement('span');
+        s.className = 'p-rain';
+        s.style.left = (Math.random() * 100).toFixed(1) + '%';
+        s.style.animationDuration = (11 + Math.random() * 9).toFixed(1) + 's';
+        s.style.animationDelay = (-Math.random() * 18).toFixed(1) + 's';
+        frag.appendChild(s);
+      }
       box.appendChild(frag);
     }
     // gentle reveal as sections come into view (no scrolling is ever triggered)
@@ -311,6 +395,87 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     for (var m = 0; m < items.length; m++) io.observe(items[m]);
+  }
+
+  /* ---------- dua journey: step numbers, tap counter, progress (device-local only) ---------- */
+  var JOURNEY_KEY = 'eternal-memorial-duas-v1';
+
+  function setupJourney() {
+    var cards = document.querySelectorAll('.dua[data-track]');
+    var total = cards.length;
+    if (!total) return;
+    var state = { done: {}, count: {} };
+    try {
+      var raw = localStorage.getItem(JOURNEY_KEY);
+      if (raw) {
+        var p = JSON.parse(raw);
+        if (p && typeof p === 'object') { state.done = p.done || {}; state.count = p.count || {}; }
+      }
+    } catch (e) { /* storage unavailable: still works for this visit */ }
+    function save() { try { localStorage.setItem(JOURNEY_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ } }
+
+    var refs = [];
+    for (var i = 0; i < total; i++) {
+      var card = cards[i];
+      var id = card.getAttribute('data-id') || ('d' + i);
+      var step = document.createElement('p');
+      step.className = 'dua-step';
+      step.textContent = 'STEP ' + (i + 1) + ' OF ' + total;
+      card.insertBefore(step, card.firstChild);
+
+      var tools = document.createElement('div');
+      tools.className = 'dua-tools';
+      tools.innerHTML =
+        '<button type="button" class="tap" data-act="tap">Recited <b>0</b> times · tap to count</button>' +
+        '<button type="button" class="undo" data-act="undo" aria-label="Remove one count">−</button>' +
+        '<button type="button" class="done" data-act="done" aria-pressed="false">Mark as read</button>';
+      card.appendChild(tools);
+      refs.push({ id: id, card: card, tapB: tools.querySelector('.tap b'), done: tools.querySelector('.done') });
+    }
+
+    var elDone = document.getElementById('jDone'), elTotal = document.getElementById('jTotal'),
+        elBar = document.getElementById('jBar'), elCount = document.getElementById('jCount');
+    if (elTotal) elTotal.textContent = String(total);
+
+    function refresh() {
+      var done = 0, sum = 0;
+      for (var k = 0; k < refs.length; k++) {
+        var r = refs[k], isDone = !!state.done[r.id], c = state.count[r.id] || 0;
+        if (isDone) done++;
+        sum += c;
+        r.tapB.textContent = String(c);
+        r.card.classList.toggle('is-done', isDone);
+        r.done.setAttribute('aria-pressed', isDone ? 'true' : 'false');
+        r.done.textContent = isDone ? 'Read ✓' : 'Mark as read';
+      }
+      if (elDone) elDone.textContent = String(done);
+      if (elCount) elCount.textContent = String(sum);
+      if (elBar) elBar.style.width = (done / total * 100).toFixed(1) + '%';
+    }
+
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest ? e.target.closest('[data-act]') : null;
+      if (!btn) return;
+      var cardEl = btn.closest('.dua[data-track]');
+      if (!cardEl) return;
+      var id = cardEl.getAttribute('data-id');
+      var act = btn.getAttribute('data-act');
+      if (act === 'tap') state.count[id] = Math.min(99999, (state.count[id] || 0) + 1);
+      else if (act === 'undo') state.count[id] = Math.max(0, (state.count[id] || 0) - 1);
+      else if (act === 'done') state.done[id] = !state.done[id];
+      save();
+      refresh();
+    });
+
+    var reset = document.getElementById('jReset');
+    if (reset) reset.addEventListener('click', function () {
+      if (window.confirm('Start the dua journey over? Your read marks and counts on this device will be cleared.')) {
+        state = { done: {}, count: {} };
+        save();
+        refresh();
+      }
+    });
+    refresh();
   }
 
   /* ---------- quiet words that change slowly ---------- */
@@ -361,7 +526,10 @@
 
   /* ---------- start ---------- */
   function start() {
+    setText('memHijri', hijriText(START_Y, START_MO, START_D));
+    setText('memBangla', banglaText(START_Y, START_MO, START_D));
     setupAmbience();
+    setupJourney();
     setupMiss();
     setupAmeen();
     tick();

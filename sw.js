@@ -1,5 +1,5 @@
 /* Caches the memorial files so the page opens offline. Time is never cached. */
-var CACHE = 'eternal-memorial-v1';
+var CACHE = 'eternal-memorial-v2';
 var FILES = ['./', './index.html', './style.css', './script.js'];
 
 self.addEventListener('install', function (e) {

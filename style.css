@@ -440,3 +440,92 @@ body::before {
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation: none !important; }
 }
+
+/* ================= sorrow, light and gentle motion ================= */
+.page { z-index: 1; }
+
+.particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.p-star {
+  position: absolute; width: 2px; height: 2px; border-radius: 50%;
+  background: var(--gold-soft); opacity: .15;
+  animation: twinkle 4s ease-in-out infinite;
+}
+.p-drop {
+  position: absolute; top: -4vh; width: 3px; height: 3px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(244,239,225,.9), rgba(201,162,75,0) 70%);
+  opacity: 0;
+  animation: fall 22s linear infinite;
+}
+@keyframes twinkle { 0%, 100% { opacity: .1; transform: scale(.8); } 50% { opacity: .95; transform: scale(1.6); } }
+@keyframes fall {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  10% { opacity: .55; }
+  90% { opacity: .35; }
+  100% { transform: translate3d(14px, 108vh, 0); opacity: 0; }
+}
+
+/* hero: one slow, quiet entrance */
+@keyframes fadein { from { opacity: 0; } to { opacity: 1; } }
+.hero-arabic   { animation: fadein 1.8s ease both; }
+.hero-eyebrow  { animation: fadein 1.8s .5s ease both; }
+.hero-title    { animation: fadein 2s .9s ease both; }
+.hero-sub      { animation: fadein 2s 1.3s ease both; }
+.hero-grief    { animation: fadein 2.4s 1.8s ease both; }
+
+.hero-crescent { animation: breathe 7s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { opacity: .75; transform: scale(.97); } 50% { opacity: 1; transform: scale(1.04); } }
+
+.hero-grief {
+  margin: 12px auto 0; max-width: 440px;
+  font-size: 1.05rem; line-height: 1.9; color: var(--ivory-dim); font-style: italic;
+}
+
+/* lanterns */
+.lantern { position: absolute; top: 0; width: 34px; height: 82px; transform-origin: 50% 0; animation: sway 7s ease-in-out infinite; }
+.lantern-l { left: 5%; }
+.lantern-r { right: 5%; animation-delay: -3.5s; }
+.lantern .flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 2.6s ease-in-out infinite; }
+@keyframes sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes flicker { 0%, 100% { opacity: .85; transform: scaleY(1); } 35% { opacity: 1; transform: scaleY(1.12); } 70% { opacity: .7; transform: scaleY(.92); } }
+
+/* faces: a slow light that passes across the gold, and living ornaments */
+.face::after {
+  content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; pointer-events: none;
+  background: linear-gradient(100deg, transparent, rgba(230,200,120,.11), transparent);
+  animation: sweep 11s ease-in-out infinite;
+}
+.face-months::after { animation-delay: 3.6s; }
+.face-hours::after  { animation-delay: 7.2s; }
+@keyframes sweep {
+  0% { transform: translateX(0) skewX(-12deg); }
+  55%, 100% { transform: translateX(430%) skewX(-12deg); }
+}
+.face-years .face-orn  { animation: orn-spin 90s linear infinite; }
+.face-months .face-orn { animation: orn-glow 6s ease-in-out infinite; }
+.face-hours .face-orn  { animation: orn-glow 6s 2s ease-in-out infinite; }
+@keyframes orn-spin { from { transform: translateX(-50%) rotate(0); } to { transform: translateX(-50%) rotate(360deg); } }
+@keyframes orn-glow { 0%, 100% { opacity: .6; } 50% { opacity: 1; } }
+
+/* scroll reveal (only when JS is running) */
+.js .reveal { opacity: 0; transform: translateY(12px); transition: opacity 1s ease, transform 1s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+
+/* grief card */
+.grief {
+  max-width: 760px; margin: 34px auto 0; padding: 26px 16px; text-align: center;
+  border: 1px solid rgba(201,162,75,.45); border-radius: 18px 18px 8px 8px;
+  background: linear-gradient(180deg, rgba(3,10,7,.9), rgba(11,61,46,.3));
+}
+.grief-ar { margin: 10px 0 4px; font-size: clamp(1.7rem, 7vw, 2.5rem); line-height: 2; color: var(--gold-soft); }
+.grief-quote {
+  margin: 20px auto 4px; max-width: 560px;
+  font-family: var(--serif); font-style: italic; font-size: 1.2rem; line-height: 1.7; color: var(--ivory);
+}
+.dua-src { margin: 0 0 6px; font-size: .78rem; letter-spacing: .08em; color: var(--gold); opacity: .85; }
+.dua-group {
+  margin: 26px 0 14px; font-family: var(--serif); font-weight: 600; font-size: 1.2rem;
+  letter-spacing: .08em; color: var(--gold-soft);
+}
+.dua-tr { line-height: 1.6; }
+
+@media (max-width: 420px) { .lantern { width: 26px; height: 62px; } }

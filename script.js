@@ -1,6 +1,6 @@
 /* THE ETERNAL MEMORIAL — script.js
  *
- * Memorial start (fixed, never modified): 2024-10-31 17:12:00 Asia/Dhaka (UTC+06:00)
+ * Memorial start (fixed, never modified): 2026-10-31 17:12:00 Asia/Dhaka (UTC+06:00)
  * Elapsed time is always recalculated as: NOW - START. Nothing is stored or accumulated,
  * so refreshing, closing, sleeping or restarting a device can never lose time.
  *
@@ -13,12 +13,12 @@
 
   /* ---------- constants ---------- */
   var DHAKA_OFFSET_MS = 6 * 3600000;
-  var START_Y = 2024, START_MO = 9, START_D = 31, START_H = 17, START_MI = 12, START_S = 0; // month 9 = October
+  var START_Y = 2026, START_MO = 9, START_D = 31, START_H = 17, START_MI = 12, START_S = 0; // month 9 = October
   var START_WALL = Date.UTC(START_Y, START_MO, START_D, START_H, START_MI, START_S); // Dhaka wall time as UTC number
-  var START_UTC = START_WALL - DHAKA_OFFSET_MS;                                      // 2024-10-31T11:12:00Z
+  var START_UTC = START_WALL - DHAKA_OFFSET_MS;                                      // 2026-10-31T11:12:00Z
   var SYNC_EVERY_MS = 5 * 60 * 1000;
   var SYNC_FRESH_MS = 15 * 60 * 1000;
-  var MIN_VALID = Date.UTC(2024, 9, 31);
+  var MIN_VALID = Date.UTC(2026, 9, 31);
   var MAX_VALID = Date.UTC(2300, 0, 1);
 
   var WEEKDAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
@@ -268,6 +268,47 @@
   }
 
   /* ---------- Ameen button (honest acknowledgment only) ---------- */
+  /* ---------- quiet ambience: built once, transform/opacity only ---------- */
+  function setupAmbience() {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.documentElement.classList.add('js');
+    var box = document.querySelector('.particles');
+    if (box && !reduce) {
+      var frag = document.createDocumentFragment();
+      var i, s;
+      for (i = 0; i < 14; i++) {          // twinkling stars
+        s = document.createElement('span');
+        s.className = 'p-star';
+        s.style.left = (Math.random() * 100).toFixed(1) + '%';
+        s.style.top = (Math.random() * 65).toFixed(1) + '%';
+        s.style.animationDuration = (3 + Math.random() * 4).toFixed(1) + 's';
+        s.style.animationDelay = (-Math.random() * 6).toFixed(1) + 's';
+        frag.appendChild(s);
+      }
+      for (i = 0; i < 12; i++) {          // slow falling points of light, like quiet tears
+        s = document.createElement('span');
+        s.className = 'p-drop';
+        s.style.left = (Math.random() * 100).toFixed(1) + '%';
+        s.style.animationDuration = (16 + Math.random() * 14).toFixed(1) + 's';
+        s.style.animationDelay = (-Math.random() * 28).toFixed(1) + 's';
+        frag.appendChild(s);
+      }
+      box.appendChild(frag);
+    }
+    // gentle reveal as sections come into view (no scrolling is ever triggered)
+    var items = document.querySelectorAll('.reveal');
+    if (reduce || !('IntersectionObserver' in window)) {
+      for (var k = 0; k < items.length; k++) items[k].classList.add('in');
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+    for (var m = 0; m < items.length; m++) io.observe(items[m]);
+  }
+
   function setupAmeen() {
     var btn = document.getElementById('ameenBtn');
     var note = document.getElementById('ameenNote');
@@ -287,6 +328,7 @@
 
   /* ---------- start ---------- */
   function start() {
+    setupAmbience();
     setupAmeen();
     tick();
     sync();
